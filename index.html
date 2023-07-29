@@ -3,10 +3,11 @@
 
 <head>
 	<link rel="stylesheet" href="./style.css">
+	<link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
 
-	<title>TAFL</title>
+	<title>TAFL Online</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-	
+
 </head>
 
 <body>
@@ -20,23 +21,30 @@
 			<input type="checkbox" id="surround-king" name="surround-king" value="true" checked="true">
 			<label for="surround-king">Surround King to Capture</label><br>
 			<label for="board-select">Board: </label>
-			<select id="board-select" name="board-select">
+			<select id="board-select" class="z2" name="board-select">
 				<option value="11x11">11 x 11</option>
 				<option value="11x11_debug">11 x 11 (Debug)</option>
 			</select><br><br>
 
-			<button id="start-game" onclick="setupNewGame()">Start Game</button>
+			<button id="start-game" class="z2" onclick="setupNewGame()">Start Game</button>
 
 			<br><br>
 			<hr>
 			<br>
 			<input id="join-location" placeholder="game-id">
-			<br><br><button id="join-game" onclick="joinGame(document.querySelector('#join-location').value)">Join Game</button>
+			<br><br><button id="join-game" class="z2"
+				onclick="id=document.querySelector('#join-location').value;window.location.hash=id;joinGame(id)">Join
+				Game</button>
 		</div>
 		<div id="game-board">
 
 		</div><br>
-		<span id="server-location"></span>
+		<span id="turn"></span><br><br>
+		<div id="challenge-container" class="z1">
+			<span>Challenge a friend:</span><br>
+			<span id="server-url" class="copyable" onclick="navigator.clipboard.writeText(this.innerHTML)" title="Click to Copy"></span><br><br>
+			<span id="server-id" class="copyable" onclick="navigator.clipboard.writeText(this.innerHTML)" title="Click to Copy"></span>
+		</div>
 	</div>
 	<script src="data.js"></script>
 	<script src="jsonBlob.js"></script>

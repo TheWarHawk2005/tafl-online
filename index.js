@@ -76,24 +76,32 @@ function selectPiece(coordX, coordY) {
 
 	} else { // Already selected a piece
 		if (rules.turn == myTeam) {
-		if (coordX == selected.coords[0] && coordY == selected.coords[1]) { // Clicked same piece again?
-			selected = null // deselect the piece
-			selectedIndex = null
-		} else { // Piece selected and trying to move
-			if (rules.defendersMayBoardShips == false && selected.team == 'defender' && rules.boardLayouts[rules.board][newY][newX] == 3) {
-				selected = null // reset
+			if (coordX == selected.coords[0] && coordY == selected.coords[1]) { // Clicked same piece again?
+				selected = null // deselect the piece
 				selectedIndex = null
-			} else {
-				movePiece(selected, selectedIndex, [coordX, coordY]) // Try to move the piece
-				selected = null // reset
-				selectedIndex = null
+			} else { // Piece selected and trying to move
+				if (rules.defendersMayBoardShips == false && selected.team == 'defender' && rules.boardLayouts[rules.board][newY][newX] == 3) {
+					selected = null // reset
+					selectedIndex = null
+				} else {
+					movePiece(selected, selectedIndex, [coordX, coordY]) // Try to move the piece
+					selected = null // reset
+					selectedIndex = null
+				}
 			}
 		}
-	}
 	}
 }
 
 function renderPieces() {
+	turnDisplay = document.querySelector('#turn')
+	turnDisplay.innerHTML = `> ${String(rules.turn).toUpperCase()}'s turn`
+	if (rules.turn == myTeam) {
+		turnDisplay.style.color = 'var(--cta-color)'
+	} else {
+		turnDisplay.style.color = 'var(--text-color)'
+	}
+
 	elements = document.querySelectorAll('.game-board-cell')
 	for (i = 0; i < elements.length; i++) {
 		elements[i].innerHTML = ''
@@ -102,7 +110,7 @@ function renderPieces() {
 		if (gameData.pieces[i]) {
 			piece = gameData.pieces[i]
 			cell = document.querySelector(`#x${piece.coords[0]}y${piece.coords[1]}`)
-			cell.innerHTML = `<img class="game-piece-icon" src="https://cdn.glitch.global/c0b2497e-9bdb-48ef-b64a-6219ebc794e2/${piece.role}.png?v=1690600428924">`
+			cell.innerHTML = `<img class="game-piece-icon" src="./assets/v1/${piece.role}.png">`
 		}
 	}
 }

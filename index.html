@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="./style.css">
+
+	<title>TAFL</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	
+</head>
+
+<body>
+	<div id="main-container">
+		<div id="settings-container" class="z1">
+			<input type="checkbox" id="wall-capture" name="wall-capture" value="true" checked="true">
+			<label for="wall-capture">Capture Against Walls</label><br>
+			<input type="checkbox" id="defenders-may-board-ships" name="defenders-may-board-ships" value="true"
+				checked="true">
+			<label for="defenders-may-board-ships">Defenders Board Ships</label><br>
+			<input type="checkbox" id="surround-king" name="surround-king" value="true" checked="true">
+			<label for="surround-king">Surround King to Capture</label><br>
+			<label for="board-select">Board: </label>
+			<select id="board-select" name="board-select">
+				<option value="11x11">11 x 11</option>
+				<option value="11x11_debug">11 x 11 (Debug)</option>
+			</select><br><br>
+
+			<button id="start-game" onclick="setupNewGame()">Start Game</button>
+
+			<br><br>
+			<hr>
+			<br>
+			<input id="join-location" placeholder="game-id">
+			<br><br><button id="join-game" onclick="joinGame(document.querySelector('#join-location').value)">Join Game</button>
+		</div>
+		<div id="game-board">
+
+		</div><br>
+		<span id="server-location"></span>
+	</div>
+	<script src="data.js"></script>
+	<script src="jsonBlob.js"></script>
+	<script src="index.js"></script>
+	<script src="server.js"></script>
+</body>
+
+</html>

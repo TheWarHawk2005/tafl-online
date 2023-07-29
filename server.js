@@ -75,7 +75,7 @@ function initialDataLoad() {
 	serverURLPath = serverURL.split('/') //get url subpages
 	serverId = serverURLPath[5] // get the actual server ID
 	document.title = 'Play TAFL Online'
-	document.querySelector('#server-url').innerHTML = window.location.hostname+serverId // display this for later use
+	document.querySelector('#server-url').innerHTML = window.location.hostname+'#'+serverId // display this for later use
 	document.querySelector('#server-id').innerHTML = `ID: ${serverId}`
 	document.querySelector('#settings-container').style.display = 'none'
 	document.querySelector('#challenge-container').style.display = 'block'

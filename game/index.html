@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Play - Tafl Online</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:image" content="./assets/art/invite.png" name="image">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="game.css">
+</head>
+
+<body>
+    <main>
+        <div id="board-wrapper">
+            <canvas id="board" width="300px" height="300px"></canvas>
+        </div>
+    </main>
+
+</body>
+
+<script>
+    const cachedAudio = {
+        capture: new Audio('../assets/sounds/capture.wav'),
+        move_0: new Audio('../assets/sounds/move_0.wav')
+    }
+</script>
+<script src="../jsonBlob.js"></script>
+<script src="../game_settings.js"></script>
+<script src="state_validation.js"></script>
+<script src="engine.js" async defer></script>
+
+</html>

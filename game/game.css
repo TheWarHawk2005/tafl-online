@@ -1,0 +1,20 @@
+body {
+    background-color: rgb(34, 34, 34);
+}
+
+canvas {
+    background-color: rgb(0, 0, 0);
+    width: 30rem;
+    height: 30rem;
+    display: block;
+    image-rendering: crisp-edges; /* For raster images */
+    border: .5rem black solid;
+}
+canvas:hover {
+    cursor: pointer;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+}

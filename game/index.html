@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:image" content="./assets/art/invite.png" name="image">
     <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="./game.css">
+    <link rel="stylesheet" href="/game/game.css"> <!-- vercel has something out for relative links-->
 </head>
 
 <body>
@@ -28,9 +28,9 @@
         move_0: new Audio('../assets/sounds/move_0.wav')
     }
 </script>
-<script src="./jsonBlob.js"></script>
+<script src="/game/jsonBlob.js"></script>
 <script src="../game_settings.js"></script>
-<script src="/state_validation.js"></script>
-<script src="/engine.js" async defer></script>
+<script src="/game/state_validation.js"></script>
+<script src="/game/engine.js" async defer></script>
 
 </html>

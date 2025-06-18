@@ -110,7 +110,7 @@ function renderPieces() {
 		if (gameData.pieces[i]) {
 			piece = gameData.pieces[i]
 			cell = document.querySelector(`#x${piece.coords[0]}y${piece.coords[1]}`)
-			cell.innerHTML = `<img class="game-piece-icon" src="./assets/v1/${piece.role}.png">`
+			cell.innerHTML = `<img class="game-piece-icon" src="/legacy/assets/v1/${piece.role}.png">`
 		}
 	}
 }

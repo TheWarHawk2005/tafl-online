@@ -7,17 +7,66 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Play - Tafl Online</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:image" content="./assets/art/invite.png" name="image">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="/game/game.css"> <!-- vercel has something out for relative links-->
 </head>
 
 <body>
+    <nav>
+        <span id="navbar-header" onclick="window.location = '../'">Tafl Online</span>
+    </nav>
     <main>
-        <div id="board-wrapper">
-            <canvas id="board" width="300px" height="300px"></canvas>
-        </div>
+        <section id="game-container">
+            <div id="board-wrapper">
+                <canvas id="board" width="300px" height="300px"></canvas>
+            </div>
+            <div id="hud">
+                <div id="opponent" class="player-tag">
+                    <span class="tag-text">opponent</span>
+                </div>
+                <div id="controls">
+                    <input id="focus-mode-toggle" class="control-button" type="button" onclick="toggleFocusMode()"
+                        title="Focus mode">
+
+                </div>
+                <div id="player" class="player-tag">
+                    <span class="tag-text">player</span>
+                </div>
+            </div>
+        </section>
+        <section id="sidebar-container">
+            <div id="info-panel">
+                <h2 id="variant-name">Header</h2>
+                <div id="sidebar-controls">
+                    <div id="copy-link-container">
+                        <input id="copy-link-button" class="control-button" type="button"
+                            onclick="copyInviteLink('sidebar')" title="Copy link">
+                        <div id="invite-popup">
+                            <span id="invite-popup-body">
+                                Invite a friend to the game!
+                            </span>
+                            <input id="invite-popup-cta" class="cta" type="button" value="Send Invite" onclick="copyInviteLink('popup')">
+                        </div>
+                    </div>
+
+                </div>
+                <div id="rules-container">
+                    <ul id="rules-list">
+                        <li>All pieces may move as far as possible horizontally and vertically. Attacker goes first.
+                        </li>
+                        <li>Capture by trapping opponent horizontally or vertically. Opponent is not captured if they
+                            move
+                            into the trap.</li>
+                        <li>Attacker wins by capturing the defender King.</li>
+                        <li id="optional-edge-win">Defender wins when the King escapes to an edge tile.</li>
+                        <li id="optional-corner-win">Defender wins when the King escapes to a corner tile</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
     </main>
 
 </body>

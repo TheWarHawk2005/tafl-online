@@ -1,7 +1,7 @@
 /* ----------------------------- Register Player ---------------------------- */
 const storageId = window.location.hash.substring(1)
 const playerId = crypto.randomUUID()
-var storageData
+var storageData, assignedPlayer
 
 registerPlayer()
 async function registerPlayer() {
@@ -10,17 +10,18 @@ async function registerPlayer() {
 
         if (storageData.registered_players.attacker == undefined) {
             storageData.registered_players.attacker = playerId
-            attemptedToRegister = 'attacker'
+            assignedPlayer = 'attacker'
         } else if (storageData.registered_players.defender == undefined) {
             storageData.registered_players.defender = playerId
-            attemptedToRegister = 'defender'
+            assignedPlayer = 'defender'
         } else {
             storageData.registered_players.spectators.push(playerId)
+            assignedPlayer = 'spectator'
         }
 
         new JSONBlobRequest().put('https://jsonblob.com/api/jsonBlob/' + storageId, storageData, function (err, response) {
             storageData = JSON.parse(response.text)
-            if (storageData.registered_players[attemptedToRegister] == undefined) {
+            if (assignedPlayer !== 'spectator' && storageData.registered_players[assignedPlayer] == undefined) {
                 console.error('Failed to register player. Retrying.')
                 registerPlayer()
             } else {
@@ -44,6 +45,10 @@ async function initializeGame() {
     canvas.style.borderColor = '#4c4334'
     context.scale(devicePixelRatio, devicePixelRatio);
     const cellSize = canvas.offsetWidth / gameSettings.board_size
+
+    const playerTag = document.getElementById('player')
+    const opponentTag = document.getElementById('opponent')
+
     var requestStatus = 'ready'
 
     const assetDirectories = {
@@ -66,8 +71,36 @@ async function initializeGame() {
     }
     var validMoves = []
 
-    prepareBoardData() //get default stateData
+    //* Display rules
+    variantNameElement = document.getElementById('variant-name')
+    variantName = storageData.board
+    variantNameElement.innerHTML = variantName.charAt(0).toUpperCase() + variantName.slice(1)
+    optionalEdgeWinElement = document.getElementById('optional-edge-win')
+    optionalCornerWinElement = document.getElementById('optional-corner-win')
+    if (storageData.rules.includes("win_on_edge")) {
+        optionalEdgeWinElement.style.display = 'list-item'
+        optionalCornerWinElement.style.display = 'none'
+    } else {
+        optionalEdgeWinElement.style.display = 'none'
+        optionalCornerWinElement.style.display = 'list-item'
+    }
+    ulist = document.getElementById('rules-list')
+    storageData.rules.forEach(rule => {
+        if (rule !== 'win_on_edge') {
+            listItem = document.createElement('LI')
+            listItem.innerHTML = rulesDescriptions[rule]
+            ulist.appendChild(listItem)
+            console.log('added rule', rule);
+        }
+    })
 
+    // if relevant, show invite popup
+    if (assignedPlayer == 'attacker') {
+        document.getElementById('invite-popup').style.display = 'block'
+        console.log('popup')
+    }
+
+    prepareBoardData() //get default stateData
     if (storageData.state_data && Object.keys(storageData.state_data).length === 0) { // set up the pieces if they aren't already
         requestStatus = "pending"
         await new JSONBlobRequest().get('https://jsonblob.com/api/jsonBlob/' + storageId, function (err, response) {
@@ -182,6 +215,7 @@ async function initializeGame() {
         stateData = validateMove(playerUUID, turn, move, stateData, tileData, rules) // render move clientside
         //TODO: validate the move serverside and sync with storage
         currentTurn = currentTurn === 'attacker' ? 'defender' : 'attacker' //toggle turn
+        displayPlayerTags() //presumptuously render player tags before data transfer
         storageData.state_data = stateData
         storageData.turn = currentTurn
         uploadToCloud(storageData)
@@ -215,6 +249,7 @@ async function initializeGame() {
                 }
                 currentTurn = storageData.turn
                 drawBoard()
+                displayPlayerTags() //TODO optimize this so it only runs until the opponent has been displayed
             })
         }
     }
@@ -273,6 +308,24 @@ async function initializeGame() {
         )
     }
 
+    function displayPlayerTags() {
+        if (assignedPlayer !== 'spectator') {
+            playerTag.dataset.assigned = assignedPlayer
+            playerTag.querySelector('.tag-text').innerHTML = assignedPlayer
+            assignedPlayer === 'attacker' ? assignedOpponent = 'defender' : assignedOpponent = 'attacker'
+            opponentTag.dataset.assigned = assignedOpponent
+            opponentTag.querySelector('.tag-text').innerHTML = assignedOpponent
+
+            if (currentTurn == assignedPlayer) {
+                opponentTag.classList.remove('active')
+                playerTag.classList.add('active')
+            } else {
+                playerTag.classList.remove('active')
+                opponentTag.classList.add('active')
+            }
+        }
+    }
+
     async function cacheImages() {
         return new Promise((resolve, reject) => {
             let loadedCount = 0
@@ -303,5 +356,31 @@ async function initializeGame() {
                 loadImage(src, identifier)
             })
         })
+    }
+}
+
+var focus = false
+function toggleFocusMode() {
+    focus = focus === false ? true : false //toggle focus
+    if (focus === true) {
+        document.getElementsByTagName('main')[0].classList.add('focus-mode')
+        document.getElementById('game-container').classList.add('focus-mode')
+        document.getElementById('hud').classList.add('focus-mode')
+    } else {
+        document.querySelectorAll('.focus-mode').forEach(element => {
+            element.classList.remove('focus-mode')
+        })
+    }
+}
+
+function copyInviteLink(origin) {
+    navigator.clipboard.writeText(window.location)
+    if (origin === 'popup') {
+        popupElement = document.getElementById('invite-popup-body')
+        document.getElementById('invite-popup-cta').style.display = 'none'
+        popupElement.innerHTML = 'Copied link 👍'
+        setTimeout(function () {
+            document.getElementById('invite-popup').style.display = 'none'
+        }, 1000)
     }
 }

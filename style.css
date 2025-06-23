@@ -11,7 +11,7 @@
     --dark_grey: #2B3535;
     --light_brown: #AA997E;
     --dark_brown: #4C4334;
-    --dark_red: #000000;
+    --dark_red: #5D3131;
 
     font-family: 'High Tower';
 
@@ -21,6 +21,10 @@
 body {
     background-color: var(--background);
     color: var(--light_grey);
+}
+
+body::selection {
+    background-color: var(--dark_red);
 }
 
 h1,
@@ -39,7 +43,7 @@ label {
 }
 
 main {
-    width: 90%;
+    width: 80%;
     margin: auto auto;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -219,7 +223,7 @@ canvas {
     text-align: center;
 }
 
-#start-game-cta {
+.cta {
     background-color: var(--light_brown);
     color: var(--background);
     width: 50%;
@@ -236,7 +240,7 @@ canvas {
         background .1s, color .1s;
 }
 
-#start-game-cta:hover {
+.cta:hover {
     background-color: transparent;
     color: var(--light_brown);
     border: 2px solid var(--light_brown);

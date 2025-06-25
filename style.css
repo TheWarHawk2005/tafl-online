@@ -45,17 +45,13 @@ label {
 main {
     width: 80%;
     margin: auto auto;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    overflow-x: visible;
 }
 
 #header {
     width: 100%;
     text-align: center;
     position: relative;
-    grid-area: 1 / 1 / 2 / 3;
+    margin-bottom: 2rem;
 }
 
 #hnefatafl-banner {
@@ -75,11 +71,19 @@ main {
     font-size: clamp(1.5rem, 5vw, 3.5rem);
 }
 
+#main-content-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "game-selection rules-display";
+    gap: 2rem;
+    overflow-x: visible;
+}
 
 #game-selection {
-    grid-area: 2 / 1 / 3 / 2;
+    grid-area: game-selection;
     max-height: 90vh;
     overflow-y: auto;
+    grid-area: game-selection;
 }
 
 #game-selection-scroll::-webkit-scrollbar-track {
@@ -100,7 +104,10 @@ canvas {
 
 .game-selector {
     margin-bottom: 2rem;
-    display: flex;
+    display: grid;
+    grid-template-columns: 10rem auto;
+    grid-template-areas: "canvas game-info";
+    gap: 2rem;
     background-color: var(--dark_grey);
     border-right: .5rem solid var(--dark_grey);
     /*Reserve the border space so the text doesn't change when selected*/
@@ -136,15 +143,14 @@ canvas {
 }
 
 .game-info {
-    margin-left: 1rem;
-
     span {
         display: block;
     }
 }
 
 #rules-display {
-    grid-area: 2 / 2 / 3 / 3;
+    grid-area: rules-display;
+
 }
 
 #rules-container {
@@ -251,4 +257,27 @@ canvas {
     color: var(--mid_grey);
     margin-top: 1rem;
     font-size: 1rem;
+}
+
+@media (max-width: 1000px) {
+    #main-content-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        grid-template-areas: "game-selection" "rules-display";
+    }
+
+    #game-selection {
+        max-height: fit-content;
+    }
+}
+
+@media (max-width: 750px) {
+    .game-selector {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        grid-template-areas: "canvas" "game-info";
+    }
+    .game-preview {
+        margin: 0 auto
+    }
 }

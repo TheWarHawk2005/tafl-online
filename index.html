@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,66 +17,73 @@
             <img id="hnefatafl-banner" src="./assets/art/hnefatafl.png">
             <span id="tafl-online-header">Tafl Online</span>
         </section>
-        <section id="game-selection">
-            <h1>Join Game</h1>
+        <div id="main-content-container">
+            <section id="game-selection">
+                <h1>Join Game</h1>
 
-            <h1>New Game</h1>
-            <div id="hnefatafl-selector" class="game-selector" data-gamelookup="hnefatafl">
-                <div class="game-preview">
-                    <canvas id="hnefatafl-selector-canvas" class="preview-canvas" data-board="hnefatafl">
-                    </canvas>
-                </div>
-                <div class="game-info">
-                    <div class="game-info-header">
-                        <span class="game-info-name">Hnefatafl</span>
-                        <span class="game-info-size">11 x 11</span>
+                <h1>New Game</h1>
+                <div id="hnefatafl-selector" class="game-selector" data-gamelookup="hnefatafl">
+                    <div class="game-preview">
+                        <canvas id="hnefatafl-selector-canvas" class="preview-canvas" data-board="hnefatafl">
+                        </canvas>
                     </div>
-                    <span class="game-info-short-description">
-                        Though mentioned in several Norse sagas, the rules for this Scandenavian tafl game were
-                        never explicitly recorded. This is just one of many reconstructed variants.
-                    </span>
-                </div>
-
-            </div>
-            <div id="tablut-selector" class="game-selector" data-gamelookup="tablut">
-                <canvas id="tablut-selector-canvas" class="preview-canvas" data-board="tablut">
-                </canvas>
-                <div class="game-info">
-                    <div class="game-info-header">
-                        <span class="game-info-name">Tablut</span>
-                        <span class="game-info-size">7 x 7</span>
+                    <div class="game-info">
+                        <div class="game-info-header">
+                            <span class="game-info-name">Hnefatafl</span>
+                            <span class="game-info-size">11 x 11</span>
+                        </div>
+                        <span class="game-info-short-description">
+                            Though mentioned in several Norse sagas, the rules for this Scandenavian tafl game were
+                            never explicitly recorded. This is just one of many reconstructed variants.
+                        </span>
                     </div>
-                    <span class="game-info-short-description">
-                        The best documented tafl game, Tablut was played well into the 18th century and its rules served
-                        as the basis for later tafl reconstructions. Originating in Sweden, the pieces were referred to
-                        as "Swedes and Russains".
-                    </span>
-                </div>
-            </div>
 
-        </section>
-        <section id="rules-display">
-            <div id="rules-container">
-                <h2>Base Rules</h2>
-                <ul id="base-rules">
-                    <li>All pieces may move as far as possible horizontally and vertically. Attacker goes first.</li>
-                    <li>Capture by trapping opponent horizontally or vertically. Opponent is not captured if they move
-                        into the trap.</li>
-                    <li>Attacker wins by capturing the defender King.</li>
-                    <li id="optional-edge-win">Defender wins when the King escapes to an edge tile.</li>
-                    <li id="optional-corner-win">Defender wins when the King escapes to a corner tile</li>
-                </ul>
-                <h2>Variant-Specific Rules</h2>
-                <ul id="variant-specific-rules">
-                    <!-- dynamically populated with index.js -->
-                </ul>
-                <div id="start-game-container">
-                    <input id="start-game-cta" class="cta" onclick="startGame()" type="button" value="Start Game">
-                    <span id="start-game-notice">You will recieve a link to invite your opponent</span>
                 </div>
-            </div>
-        </section>
+                <div id="tablut-selector" class="game-selector" data-gamelookup="tablut">
+                    <div class="game-preview">
+                        <canvas id="tablut-selector-canvas" class="preview-canvas" data-board="tablut">
+                        </canvas>
+                    </div>
+                    <div class="game-info">
+                        <div class="game-info-header">
+                            <span class="game-info-name">Tablut</span>
+                            <span class="game-info-size">7 x 7</span>
+                        </div>
+                        <span class="game-info-short-description">
+                            The best documented tafl game, Tablut was played well into the 18th century and its rules
+                            served
+                            as the basis for later tafl reconstructions. Originating in Sweden, the pieces were referred
+                            to
+                            as "Swedes and Russains".
+                        </span>
+                    </div>
+                </div>
 
+            </section>
+            <section id="rules-display">
+                <div id="rules-container">
+                    <h2>Base Rules</h2>
+                    <ul id="base-rules">
+                        <li>All pieces may move as far as possible horizontally and vertically. Attacker goes first.
+                        </li>
+                        <li>Capture by trapping opponent horizontally or vertically. Opponent is not captured if they
+                            move
+                            into the trap.</li>
+                        <li>Attacker wins by capturing the defender King.</li>
+                        <li id="optional-edge-win">Defender wins when the King escapes to an edge tile.</li>
+                        <li id="optional-corner-win">Defender wins when the King escapes to a corner tile</li>
+                    </ul>
+                    <h2>Variant-Specific Rules</h2>
+                    <ul id="variant-specific-rules">
+                        <!-- dynamically populated with index.js -->
+                    </ul>
+                    <div id="start-game-container">
+                        <input id="start-game-cta" class="cta" onclick="startGame()" type="button" value="Start Game">
+                        <span id="start-game-notice">You will recieve a link to invite your opponent</span>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
     <script src="game_settings.js"></script>
     <script src="jsonBlob.js"></script>

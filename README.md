@@ -1,7 +1,10 @@
-# v1.0.1 Documentation
+# v1.0.3 Documentation
 ## Additions
 
-- Nothing new today
+- Added favicon and app icon
 
 ## Fixes
-- Made homepage responsive
+- Nothing today
+
+## Developer
+- Now works with Git

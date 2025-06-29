@@ -1,0 +1,157 @@
+/*
+* 	SITEWIDE STYLES
+	Modify default elements like body and input
+*/
+:root {
+	--background: rgb(31, 29, 28);
+	--text-color: rgb(178, 178, 178);
+	--cta-color: rgb(36, 183, 137);
+
+	--z1: rgb(47, 43, 43);
+	--z2: rgb(62, 59, 59);
+}
+* {
+	margin: 0px;
+}
+body {
+	font-size: 1rem;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: var(--background);
+	color: var(--text-color);
+	font-weight: 600;
+}
+
+button {
+	max-width: 20rem;
+	min-width: fit-content;
+	width: 100%;
+	border: none;
+	border-radius: .3rem;
+
+	padding: .5rem;
+	padding-bottom: .8rem;
+	color: var(--text-color);
+
+	font-size: 1rem;
+	font-weight: 600;
+	box-shadow: inset 0 -.3rem 0 0 rgba(0, 0, 0, 0.5);
+	text-align: center;
+}
+button:hover {
+	background-color: var(--background);
+}
+button:active {
+	color: var(--cta-color);
+	box-shadow: inset 0 0rem 0 0 rgba(0, 0, 0, 0.5);
+}
+input {
+	color: var(--text-color);
+}
+select{
+	color: var(--text-color);
+}
+input[type=checkbox] {
+	accent-color: var(--cta-color);
+}
+
+#main-container {
+	width: fit-content;
+	height: fit-content;
+	margin: 0 auto;
+}
+
+/*
+*	UI STYLES
+	Modify the site UI
+*/
+.z1 {
+	background-color: var(--z1);
+}
+.z2 {
+	background-color: var(--z2);
+}
+
+#join-location {
+	width: 100%;
+	border: none;
+	border-radius: .3rem;
+
+	background-color: #1f1d1c;
+	color: #b2b2b2;
+	padding: .5rem;
+	box-sizing: border-box;
+}
+
+.copyable {
+	color: var(--text-color)
+}
+.copyable:hover {
+	color: var(--cta-color)
+}
+
+#settings-container,#challenge-container {
+	width: fit-content;
+	margin: .5rem;
+	padding: .5rem;
+	border-radius: .5rem;
+}
+
+#game-board{
+	float: left;
+	margin: 1rem;
+}
+
+.game-board-row {
+	display: block;
+}
+
+.game-board-cell {
+	filter: brightness(1);
+	display: inline-block;
+}
+.game-board-cell:hover {
+	filter: brightness(1.3);
+}
+.game-piece-icon {
+	width: 100%;
+	image-rendering: optimizeSpeed;
+	image-rendering: pixelated;
+	image-rendering: optimize-contrast;
+	-ms-interpolation-mode: nearest-neighbor;
+}
+
+.cell-type-0 { /* Default */
+	background-size: cover;
+	image-rendering: pixelated;
+	background-image: url("./assets/v1/tile_default.png");
+}
+
+.cell-type-1 { /* THRONE */
+	background-size: cover;
+	image-rendering: pixelated;
+	background-image: url("./assets/v1/tile_default.png");
+
+}
+
+.cell-type-2 { /* DEFENDER */
+	background-size: cover;
+	image-rendering: pixelated;
+	background-image: url("./assets/v1/tile_defender.png");
+}
+
+.cell-type-3 { /* ATTACKER */
+	background-size: cover;
+	image-rendering: pixelated;
+	background-image: url("./assets/v1/tile_attacker.png");
+}
+
+.cell-type-4 { /* GOAL */
+	background-size: cover;
+	image-rendering: pixelated;
+	background-image: url("./assets/v1/tile_goal.png");
+}
+
+#challenge-container {
+	float: left;
+	display: none;
+}

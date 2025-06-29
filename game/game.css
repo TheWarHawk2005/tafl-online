@@ -1,0 +1,286 @@
+:root {
+    --hudWidth: 5rem;
+    --sectionGaps: 2rem;
+    --boardWidth: calc((80vw * .66) - var(--hudWidth) - var(--sectionGaps));
+    --boardHeight: var(--boardWidth);
+}
+
+body {
+    background-color: rgb(34, 34, 34);
+    margin: 0px;
+    width: 100%;
+}
+
+.control-button {
+    padding: .25rem;
+    height: 1.2rem;
+    width: 1.2rem;
+    border: 2px solid var(--mid_grey);
+    border-radius: .5rem;
+    background-color: var(--dark_grey);
+    background-size: calc(100% - .5rem);
+    background-position: .25rem .25rem;
+    background-repeat: no-repeat;
+    box-sizing: content-box;
+    cursor: pointer;
+}
+
+nav {
+    width: calc(100% - 2rem);
+    /* padding: 1rem 0rem 1rem 0rem; */
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--dark_grey);
+    text-align: center;
+}
+
+#navbar-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: color .2s;
+    cursor: pointer;
+}
+
+#navbar-header:hover {
+    color: var(--light_brown)
+}
+
+main {
+    height: 100%;
+    width: 80vw;
+    margin: auto auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-areas: "game-container sidebar-container";
+    gap: var(--sectionGaps)
+}
+
+main.focus-mode {
+    grid-template-columns: 1fr;
+    grid-template-areas: "game-container" "sidebar-container";
+    grid-template-rows: auto auto;
+
+    width: var(--boardWidth);
+}
+
+#game-container {
+    width: 100%;
+    grid-area: game-container;
+    display: grid;
+    grid-template-columns: var(--boardWidth) var(--hudWidth);
+    grid-template-areas: "board hud";
+    gap: var(--sectionGaps);
+}
+
+#game-container.focus-mode {
+    grid-template-areas: "board" "hud";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+}
+
+#board-wrapper {
+    height: var(--boardHeight);
+    width: var(--boardWidth);
+    grid-area: board;
+    justify-self: center;
+}
+
+canvas {
+    background-color: rgb(0, 0, 0);
+    width: auto;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    display: block;
+    image-rendering: crisp-edges;
+    /* For raster images */
+    border: .5rem black solid;
+    box-sizing: border-box;
+    grid-area: canvas;
+}
+
+canvas:hover {
+    cursor: pointer;
+}
+
+#hud {
+    height: var(--boardHeight);
+    display: grid;
+    grid-area: hud;
+    grid-template-areas:
+        "opponent"
+        "controls"
+        "player";
+    grid-template-rows: auto auto auto;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+#hud.focus-mode {
+    height: fit-content;
+    grid-template-areas: "player controls opponent";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+
+    div {
+        text-align: center;
+        align-self: center;
+    }
+}
+
+#opponent {
+    grid-area: opponent;
+}
+
+#controls {
+    grid-area: controls;
+    align-self: center;
+}
+
+#focus-mode-toggle {
+    background-image: url('/assets/ui/focus-mode.svg');
+}
+
+#player {
+    grid-area: player;
+    align-self: flex-end;
+}
+
+.player-tag {
+    width: 100%;
+    height: fit-content;
+    padding: .25rem;
+    /* colors will be set programatically */
+    color: transparent;
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-radius: .5rem;
+    text-align: center;
+
+    font-weight: bold;
+    opacity: 30%;
+    box-sizing: border-box;
+}
+
+.player-tag[data-assigned="attacker"] {
+    background-color: var(--dark_grey);
+    color: var(--light_grey);
+    border-color: var(--mid_grey)
+}
+
+.player-tag[data-assigned="defender"] {
+    background-color: var(--light_grey);
+    color: var(--background);
+    border-color: var(--white)
+}
+
+.player-tag.active {
+    opacity: 100%;
+}
+
+#sidebar-container {
+    float: left;
+}
+
+#info-panel {
+    background-color: var(--dark_grey);
+    padding: 1rem;
+
+    li {
+        color: var(--light_grey);
+    }
+}
+
+#variant-name {
+    color: var(--light_brown);
+}
+
+#copy-link-container {
+    position: relative;
+    display: inline-block;
+}
+
+#copy-link-button {
+    background-image: url('/assets/ui/copy_link.svg');
+}
+
+#invite-popup {
+    display: none;
+    position: absolute;
+    top: 120%;
+    /* below the button */
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--mid_grey);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    white-space: nowrap;
+}
+
+#invite-popup::after {
+    content: "";
+    position: absolute;
+    top: -8px;
+    /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 8px 8px 8px;
+    border-style: solid;
+    border-color: transparent transparent var(--mid_grey) transparent;
+    width: 0;
+    height: 0;
+}
+
+#invite-popup-cta {
+    display: block;
+    margin: auto auto;
+    background-color: var(--dark_red);
+    color: var(--light_grey);
+}
+
+#invite-popup-cta:hover {
+    background-color: transparent;
+    border-color: var(--dark_red);
+    color: var(--dark_red);
+}
+
+#rules-container {
+    display: inline-block;
+    padding: 0;
+}
+
+@media (max-width: 750px) {
+    :root {
+        --boardWidth: 80vw;
+        --boardHeight: var(--boardWidth);
+    }
+
+    main {
+        grid-template-columns: 1fr;
+        grid-template-areas: "game-container" "sidebar-container";
+        grid-template-rows: auto auto;
+    }
+
+    #game-container {
+        grid-template-areas: "board" "hud";
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto
+    }
+
+    #hud {
+        height: fit-content;
+        grid-template-areas: "player controls opponent";
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto;
+
+        div {
+            align-self: center;
+        }
+    }
+
+    #focus-mode-toggle {
+        display: none;
+    }
+}

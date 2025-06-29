@@ -1,0 +1,283 @@
+@font-face {
+    font-family: 'High Tower';
+    src: url('./assets/HTOWERT.TTF');
+}
+
+:root {
+    --background: #222222;
+    --white: #ECEEEE;
+    --light_grey: #C5CECE;
+    --mid_grey: #485151;
+    --dark_grey: #2B3535;
+    --light_brown: #AA997E;
+    --dark_brown: #4C4334;
+    --dark_red: #5D3131;
+
+    font-family: 'High Tower';
+
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--light_grey);
+}
+
+body::selection {
+    background-color: var(--dark_red);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    margin: 0px 0px .5rem 0px;
+}
+
+span,
+p,
+li,
+label {
+    font-size: 1.2rem;
+}
+
+main {
+    width: 80%;
+    margin: auto auto;
+}
+
+#header {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+#hnefatafl-banner {
+    width: 50%;
+    margin: auto auto;
+}
+
+#tafl-online-header {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: max-content;
+    z-index: 2;
+    /* Ensure it's on top */
+    color: var(--light_grey);
+    font-size: clamp(1.5rem, 5vw, 3.5rem);
+}
+
+#main-content-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "game-selection rules-display";
+    gap: 2rem;
+    overflow-x: visible;
+}
+
+#game-selection {
+    grid-area: game-selection;
+    max-height: 90vh;
+    overflow-y: auto;
+    grid-area: game-selection;
+}
+
+#game-selection-scroll::-webkit-scrollbar-track {
+    background-color: var(--dark_grey);
+    /* Or any color you prefer */
+}
+
+
+canvas {
+    background-color: rgb(0, 0, 0);
+    width: 10rem;
+    height: 10rem;
+    display: block;
+    image-rendering: crisp-edges;
+    /* For raster images */
+    border: .5rem black solid;
+}
+
+.game-selector {
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: 10rem auto;
+    grid-template-areas: "canvas game-info";
+    gap: 2rem;
+    background-color: var(--dark_grey);
+    border-right: .5rem solid var(--dark_grey);
+    /*Reserve the border space so the text doesn't change when selected*/
+    padding: 1rem .5rem 1rem 1rem;
+
+    box-shadow: none;
+    transition: box-shadow .1s;
+}
+
+.game-selector:hover {
+    box-shadow: 0rem 1rem 1rem -1rem black;
+    transition: box-shadow .1s;
+    cursor: pointer;
+}
+
+.game-selector.selected {
+    border-right: .5rem solid var(--light_brown);
+}
+
+.game-info-header {
+    margin-bottom: .5rem;
+    display: block;
+}
+
+.game-info-name {
+    color: var(--light_brown);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.game-info-short-description {
+    color: var(--light_grey);
+}
+
+.game-info {
+    span {
+        display: block;
+    }
+}
+
+#rules-display {
+    grid-area: rules-display;
+
+}
+
+#rules-container {
+    display: none;
+    background-color: var(--dark_grey);
+    padding: 1rem;
+
+    h2 {
+        color: var(--light_brown);
+    }
+
+    ul {
+        list-style-position: outside;
+        padding-left: 2em;
+        margin: 1rem 0 1rem 0;
+    }
+
+    li {
+        position: relative;
+        padding-left: 0;
+        margin-bottom: 0.5em;
+    }
+
+    .rule-wrapper {
+        margin-left: -1.2em;
+        display: block;
+    }
+
+    .custom-checkbox-label {
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        user-select: none;
+        padding-left: 1.5em;
+    }
+
+    .custom-checkbox-label .checkmark {
+        position: absolute;
+        left: 0;
+        top: .6em;
+        transform: translateY(-50%);
+        height: .8em;
+        width: .8em;
+        background-color: var(--dark_grey);
+        border: 2px solid var(--light_brown);
+        border-radius: 0.2em;
+        transition: background 0.1s;
+        box-sizing: border-box;
+        pointer-events: none;
+        /* allow label click to reach input */
+    }
+
+    /* Hide the native checkbox */
+    li input[type="checkbox"] {
+        opacity: 0;
+        width: 1.2em;
+        height: 1.2em;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+        z-index: 1;
+        cursor: pointer;
+    }
+
+    /* Show image when checked */
+    li input[type="checkbox"]:checked+label .checkmark {
+        background-color: var(--light_brown);
+    }
+}
+
+#start-game-container {
+    width: 100%;
+    text-align: center;
+}
+
+.cta {
+    background-color: var(--light_brown);
+    color: var(--background);
+    width: 50%;
+    border-radius: .5rem;
+    /*border placeholder to prevent jitter on hover*/
+    border: 2px solid transparent;
+    padding: .5rem;
+    font-family: 'High Tower';
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition:
+        background .1s, color .1s;
+}
+
+.cta:hover {
+    background-color: transparent;
+    color: var(--light_brown);
+    border: 2px solid var(--light_brown);
+}
+
+#start-game-notice {
+    display: block;
+    color: var(--mid_grey);
+    margin-top: 1rem;
+    font-size: 1rem;
+}
+
+@media (max-width: 1000px) {
+    #main-content-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        grid-template-areas: "game-selection" "rules-display";
+    }
+
+    #game-selection {
+        max-height: fit-content;
+    }
+}
+
+@media (max-width: 750px) {
+    .game-selector {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        grid-template-areas: "canvas" "game-info";
+    }
+    .game-preview {
+        margin: 0 auto
+    }
+}
